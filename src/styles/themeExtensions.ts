@@ -15,13 +15,17 @@ declare module '@mui/material/styles' {
   }
   interface Palette {
     command: Palette['primary'];
+    surface: Palette['primary'];
+    accent: Palette['primary'];
   }
   interface PaletteOptions {
     command: PaletteOptions['primary'];
+    surface?: PaletteOptions['primary'];
+    accent?: PaletteOptions['primary'];
   }
-};
+}
 
 // Module augmentation emotion
 declare module "@emotion/react" {
   export interface Theme extends MUITheme { }
-};
+}

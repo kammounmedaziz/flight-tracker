@@ -219,8 +219,9 @@ const FlightMap: React.FC<Props> = (props) => {
         <Box
           sx={{
             position: 'absolute',
-            bottom: 48,
-            right: 50
+            bottom: 24,
+            right: 24,
+            zIndex: 10
           }}>
           <DataOverlay
             stateVectors={props.stateVectors} />
@@ -231,8 +232,9 @@ const FlightMap: React.FC<Props> = (props) => {
         <Box
           sx={{
             position: 'absolute',
-            bottom: 186,
-            right: 50
+            bottom: showDataOverlayOnMap ? 200 : 24,
+            right: 24,
+            zIndex: 10
           }}>
           <LogOverlay />
         </Box>
@@ -242,9 +244,10 @@ const FlightMap: React.FC<Props> = (props) => {
         <Box
           sx={{
             position: 'absolute',
-            bottom: 48,
-            left: 0,
-            padding: '10px'
+            bottom: 24,
+            left: 24,
+            zIndex: 10,
+            maxWidth: 'calc(100vw - 300px)', // Prevent overflow on small screens
           }}>
 
           <AircraftInfoOverlay

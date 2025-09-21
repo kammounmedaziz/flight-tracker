@@ -3,10 +3,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ScrollContainer, Indicator1 } from '@daniel.neuweiler/react-lib-module';
 
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, Chip, Divider } from '@mui/material';
 import { useTheme, Theme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
-import CloseIcon from '@mui/icons-material/Close';
+import { 
+  Close as CloseIcon, 
+  LocationOn as LocationIcon,
+  Speed as SpeedIcon,
+  Height as AltitudeIcon,
+  Flight as FlightIcon
+} from '@mui/icons-material';
 
 import { IAircraftTrack, resolvePositionSource, resolveCategory } from '../opensky';
 import { getFormattedValue, getIcon, getRotation, getStatusText } from '../helpers';
@@ -106,16 +112,29 @@ const AircraftInfoOverlay: React.FC<Props> = (props) => {
 
           <Box
             sx={{
-              backgroundColor: theme.palette.primary.main,
-              borderRadius: '50%',
-              width: 48,
-              height: 48,
+              background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
+              borderRadius: 3,
+              width: 56,
+              height: 56,
               display: 'flex',
               alignItems: 'center',
               alignContent: 'center',
               justifyItems: 'center',
               justifyContent: 'center',
-              textAlign: 'center'
+              textAlign: 'center',
+              boxShadow: `0 8px 24px ${theme.palette.primary.main}40`,
+              position: 'relative',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                inset: 0,
+                borderRadius: 3,
+                padding: '2px',
+                background: `linear-gradient(135deg, ${theme.palette.primary.light}, ${theme.palette.secondary.main})`,
+                mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                maskComposite: 'xor',
+                WebkitMaskComposite: 'xor',
+              }
             }}>
 
             <FlightIcon
@@ -130,7 +149,7 @@ const AircraftInfoOverlay: React.FC<Props> = (props) => {
           <Box
             sx={{
               flex: 'auto',
-              marginLeft: 1,
+              marginLeft: 2,
               marginRight: 1,
               display: 'flex',
               flexDirection: 'column',
@@ -138,21 +157,41 @@ const AircraftInfoOverlay: React.FC<Props> = (props) => {
               alignContent: 'flex-start'
             }}>
             <Typography
-              variant='h6'>
-              {stateVector.callsign ? stateVector.callsign : '?'}
+              variant='h5'
+              sx={{
+                fontWeight: 700,
+                color: theme.palette.text.primary,
+                letterSpacing: '-0.01em',
+                marginBottom: 0.5
+              }}>
+              {stateVector.callsign ? stateVector.callsign.trim() : 'Unknown'}
             </Typography>
-            {/* <Typography
-              variant='body1'>
-              {stateVector.category}
-            </Typography> */}
             <Typography
-              variant='body1'>
+              variant='body1'
+              sx={{
+                color: theme.palette.text.secondary,
+                fontWeight: 500,
+                opacity: 0.8
+              }}>
               {stateVector.origin_country}
             </Typography>
           </Box>
 
           <IconButton
             aria-label="close"
+            sx={{
+              width: 40,
+              height: 40,
+              backgroundColor: theme.palette.mode === 'dark' 
+                ? 'rgba(239, 68, 68, 0.1)' 
+                : 'rgba(239, 68, 68, 0.05)',
+              border: '1px solid rgba(239, 68, 68, 0.2)',
+              transition: 'all 0.2s ease-in-out',
+              '&:hover': {
+                backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                transform: 'scale(1.05)',
+              }
+            }}
             onClick={() => {
 
               if (!props.selectedAircraft)
@@ -164,7 +203,12 @@ const AircraftInfoOverlay: React.FC<Props> = (props) => {
               if (props.onRelease)
                 props.onRelease(props.selectedAircraft.stateVector.icao24)
             }}>
-            <CloseIcon color='error' />
+            <CloseIcon 
+              sx={{ 
+                color: '#EF4444',
+                fontSize: 20
+              }} 
+            />
           </IconButton>
 
         </Box>
@@ -172,10 +216,12 @@ const AircraftInfoOverlay: React.FC<Props> = (props) => {
         <Box
           sx={{
             width: '100%',
-            height: 2,
-            marginTop: 1,
+            height: 1,
+            marginTop: 2,
             marginBottom: 2,
-            backgroundColor: (theme) => theme.palette.primary.main
+            background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+            borderRadius: 1,
+            opacity: 0.6
           }} />
 
       </React.Fragment>
@@ -411,13 +457,21 @@ const AircraftInfoOverlay: React.FC<Props> = (props) => {
       <Box
         sx={{
           position: 'relative',
-          minWidth: 268,
-          minHeight: 84,
+          minWidth: 300,
+          minHeight: 100,
           height: '100%',
-          backgroundColor: theme.palette.background.paper,
-          borderRadius: 2,
-          boxShadow: 5,
-          opacity: 0.9,
+          background: theme.palette.mode === 'dark' 
+            ? 'rgba(30, 41, 59, 0.8)' 
+            : 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderRadius: 3,
+          border: theme.palette.mode === 'dark' 
+            ? '1px solid rgba(100, 116, 139, 0.2)'
+            : '1px solid rgba(203, 213, 225, 0.3)',
+          boxShadow: theme.palette.mode === 'dark'
+            ? '0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05)'
+            : '0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05)',
           display: 'flex',
           flexDirection: 'column',
           alignContent: 'center',
@@ -438,17 +492,32 @@ const AircraftInfoOverlay: React.FC<Props> = (props) => {
         overflow: 'hidden',
         position: 'relative',
         maxHeight: 'calc(100vh - 160px)',
-        minWidth: 268,
+        minWidth: 300,
         width: 'auto',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         alignContent: 'flex-start',
-        backgroundColor: theme.palette.background.paper,
-        borderRadius: 2,
-        boxShadow: 5,
-        opacity: 0.9,
-        padding: theme.spacing(1)
+        background: theme.palette.mode === 'dark' 
+          ? 'rgba(30, 41, 59, 0.85)' 
+          : 'rgba(255, 255, 255, 0.85)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderRadius: 3,
+        border: theme.palette.mode === 'dark' 
+          ? '1px solid rgba(100, 116, 139, 0.2)'
+          : '1px solid rgba(203, 213, 225, 0.3)',
+        boxShadow: theme.palette.mode === 'dark'
+          ? '0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)'
+          : '0 12px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1)',
+        padding: theme.spacing(2),
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: theme.palette.mode === 'dark'
+            ? '0 16px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15)'
+            : '0 16px 48px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.15)',
+        }
       }}>
 
       {renderHeader()}

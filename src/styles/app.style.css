@@ -1,24 +1,155 @@
+/* Import Inter font for modern typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Mapbox control customizations */
 .mapboxgl-ctrl-group button+button {
-  border-top: 1px solid;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mapboxgl-ctrl-group button:focus {
-  box-shadow:0 0 2px 2px #2196f3;
+  box-shadow: 0 0 8px 2px rgba(59, 130, 246, 0.5);
 }
 
 .mapboxgl-ctrl-group button:focus:focus-visible {
-  box-shadow:0 0 2px 2px #2196f3;
+  box-shadow: 0 0 8px 2px rgba(59, 130, 246, 0.5);
 }
 
+.mapboxgl-ctrl-group button {
+  background: rgba(30, 41, 59, 0.8) !important;
+  backdrop-filter: blur(20px);
+  border-radius: 8px !important;
+  border: 1px solid rgba(100, 116, 139, 0.2) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.mapboxgl-ctrl-group button:hover {
+  background: rgba(51, 65, 85, 0.9) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.mapboxgl-ctrl-group {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Custom utility classes with modern colors */
 .red {
-  background: red;
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  border-radius: 8px;
 }
+
 .green {
-  background: green;
+  background: linear-gradient(135deg, #10B981, #059669);
+  border-radius: 8px;
 }
+
 .blue {
-  background: blue;
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  border-radius: 8px;
 }
+
 .yellow {
-  background: yellow;
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  border-radius: 8px;
+}
+
+/* Modern glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Animated gradient background */
+.animated-gradient {
+  background: linear-gradient(-45deg, #3B82F6, #8B5CF6, #EC4899, #10B981);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Smooth fade-in animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse animation for live indicators */
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(100, 116, 139, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563EB, #7C3AED);
+}
+
+/* Root styling improvements */
+html, body {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: inherit;
+}
+
+::-moz-selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: inherit;
 }
